@@ -10,6 +10,7 @@ OUTLINE
 8) add error checking on setMaxValue function
 9) create main function with while loop checking inputs
 10) add option 3 to inputs (thanks user, prints results, return 0)
+11) add persistent max number
 */
 
 #include <stdio.h>
@@ -98,8 +99,33 @@ void setMaxValue()
   }
 }
 
+// max number persistent data
+void getMaxNumber()
+{
+  FILE *fp = fopen("maxNumber.txt", "r");
+  int num;
+  fscanf(fp, "%d", &num);
+  // checks for empty file
+  if (num == 32758)
+  {
+    printf("maxNumber.txt is empty\n");
+  }
+  else if (num > 0 && num <= 10)
+  {
+    maxNumber = num;
+    printf("Loaded %d as maxNumber\n", num);
+  }
+}
+
+void saveMaxNumber()
+{
+  FILE *fp = fopen("maxNumber.txt", "w+");
+  fprintf(fp, "%d", maxNumber);
+}
+
 int main()
 {
+  getMaxNumber();
   while (true)
   {
     printf("Please select an option:\n");
@@ -118,5 +144,6 @@ int main()
   }
   printf("Thank you for playing!\n");
   printGameResults();
+  saveMaxNumber();
   return 0;
 }
