@@ -48,8 +48,8 @@ int main()
   tip = scanf("%f %f", &tip, &tax);
 
   // calculate cost
-  float tipCost = randomItem.price * tip;
-  float taxCost = randomItem.price * tax;
+  float tipCost = randomItem.price * tip / 100;
+  float taxCost = randomItem.price * tax / 100;
   float totalCost = randomItem.price + tipCost + taxCost;
 
   // print out costs
