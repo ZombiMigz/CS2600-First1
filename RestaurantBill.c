@@ -1,4 +1,5 @@
 /*
+OUTLINE
 Restaurant Bill
 Write a program that computes the tax and tip on a restaurant bill for a patron. The
 program should accept the tax and tip both as percentages from the command line when
@@ -18,3 +19,52 @@ Pizza: $22.35
 6) print out costs
 
 */
+
+// BEGIN PROGRAM
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
+
+// struct for food item
+struct FoodItem
+{
+  char name[10];
+  float price;
+};
+
+// main function
+int main()
+{
+  // array of FoodItems
+  struct FoodItem menu[4];
+  strcpy(menu[0].name, "Salad");
+  menu[0].price = 9.95;
+  strcpy(menu[1].name, "Soup");
+  menu[1].price = 4.45;
+  strcpy(menu[2].name, "Sandwhich");
+  menu[2].price = 13.25;
+  strcpy(menu[3].name, "Pizza");
+  menu[3].price = 22.35;
+
+  // randomly pick from array
+  srand(time(0));
+  struct FoodItem randomItem = menu[rand() % 4];
+
+  // get user input for tax & tip
+  float tip;
+  float tax;
+  printf("Please enter tip and tax as a percentage (i.e. \"15.43 12.25\" )");
+  tip = scanf("%f %f", &tip, &tax);
+
+  // calculate cost
+  float tipCost = randomItem.price * tip;
+  float taxCost = randomItem.price * tax;
+  float totalCost = randomItem.price + tipCost + taxCost;
+
+  // print out costs
+  printf("%s($%.2f), tax: $%.2f, tip: $%.2f, total: $%.2f", randomItem.name, randomItem.price, taxCost, tipCost, totalCost);
+
+  return 0;
+}
